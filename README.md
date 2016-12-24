@@ -6,4 +6,6 @@ This project is created with the help of Qt (https://www.qt.io/) and Boost (http
 
 The TextRank algorithm is explained here: https://web.eecs.umich.edu/~mihalcea/papers/mihalcea.emnlp04.pdf
 
+The source code is platform-independent but it is only compiled for Windows in the bin tree.
+
 The project tree is not finished.
