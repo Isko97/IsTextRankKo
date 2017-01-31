@@ -19,7 +19,7 @@
 #include"graph.hpp"
 #include<boost/algorithm/string/split.hpp>
 #include<boost/algorithm/string/classification.hpp>
-#include<regex>
+#include<boost/regex.hpp>
 #include<algorithm>
 #include<iterator>
 #include<iostream>
@@ -62,16 +62,14 @@ std::string TextRank::getKeyphrases(const std::string& text, float dampingFactor
     std::vector<std::string> vSentences;
 
     // Festlegen der Satzgrenzen
-    std::regex re("(?: [\\.\\!\\?]\\s+" // Fall 1: Zeichensetzung gefolgt von Leerzeichen
+    boost::regex re("(?: [\\.\\!\\?]\\s+" // Fall 1: Zeichensetzung gefolgt von Leerzeichen
         "|   \\.\\\",?\\s+"   // Fall 2: Beginn des Zitats
-        "|   \\s+\\\")");    // Fall 3: Ende des Zitats
+        "|   \\s+\\\")",    // Fall 3: Ende des Zitats
+         boost::regex::perl | boost::regex::mod_x);
 
     // Iteriere durch Sätze
-    //boost::sregex_token_iterator it(begin(text), end(text), re, -1);
-    //boost::sregex_token_iterator endit;
-
-    std::sregex_token_iterator it(text.begin(), text.end(), re, -1);
-    std::sregex_token_iterator endit;
+    boost::sregex_token_iterator it(begin(text), end(text), re, -1);
+    boost::sregex_token_iterator endit;
 
     std::copy(it, endit, std::back_inserter(vSentences));
 
